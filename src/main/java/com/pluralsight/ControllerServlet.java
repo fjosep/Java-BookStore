@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.inject.Inject;
+
+import static java.lang.Integer.parseInt;
+
 /**
  * Servlet implementation class HelloWorld
  */
@@ -52,13 +55,20 @@ public class ControllerServlet extends HttpServlet {
 			switch(action) {
 				case "/admin":
 					 showBookAdmin(request, response);
-           break;
+           			break;
 			  case "/new":
 					showNewForm(request, response);
           break;
 				case "/insert":
 					insertBook(request, response);
           break;
+
+
+          case "/delete":
+          	deleteBook(request, response);
+					break;
+
+
         default:
 				   listBooks(request, response);
            break;
@@ -103,6 +113,20 @@ public class ControllerServlet extends HttpServlet {
 
 		bookDAO.insertBook(newBook);
 		response.sendRedirect("list");
+	}
+
+
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException, NumberFormatException {
+
+		int id;
+		id = parseInt(request.getParameter("id"));
+
+		bookDAO.deleteBook(id);
+
+		response.sendRedirect("list");
+
+
 	}
 
 	/**

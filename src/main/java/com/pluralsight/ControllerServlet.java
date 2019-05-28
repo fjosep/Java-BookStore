@@ -53,25 +53,24 @@ public class ControllerServlet extends HttpServlet {
 
 		try {
 			switch(action) {
+
 				case "/admin":
 					 showBookAdmin(request, response);
            			break;
-			  case "/new":
+			  	case "/new":
 					showNewForm(request, response);
-          break;
+          			break;
 				case "/insert":
 					insertBook(request, response);
-          break;
-
-
-          case "/delete":
-          	deleteBook(request, response);
+          			break;
+          		case "/delete":
+          			deleteBook(request, response);
 					break;
 
 
-        default:
+				default:
 				   listBooks(request, response);
-           break;
+				   break;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -117,13 +116,11 @@ public class ControllerServlet extends HttpServlet {
 
 
 	private void deleteBook(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException, NumberFormatException {
+		throws ServletException, IOException{
 
-		int id;
-		id = parseInt(request.getParameter("id"));
+		int id = parseInt(request.getParameter("id"));
 
 		bookDAO.deleteBook(id);
-
 		response.sendRedirect("list");
 
 
